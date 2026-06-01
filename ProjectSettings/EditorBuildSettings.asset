@@ -11,6 +11,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/menu1.unity
     guid: 4643d9c68a5e2334caac93905c3a78ba
+  - enabled: 1
+    path: Assets/Scenes/menuquiz.unity
+    guid: 686b947848598e940b41aa1437046c1e
+  - enabled: 1
+    path: Assets/Scenes/menuminijogos.unity
+    guid: dd03e2d880915f24380add446b8731c8
+  - enabled: 1
+    path: Assets/Scenes/jogomemoria.unity
+    guid: c19605cb9750c2249ac5200b047c3878
+  - enabled: 1
+    path: Assets/Scenes/memorian1.unity
+    guid: f05e85296dd8378448e6887a631756a5
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

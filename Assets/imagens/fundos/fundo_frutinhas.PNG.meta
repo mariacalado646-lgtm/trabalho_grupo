@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 7d8a338210fe30f4483d095a56b7356b
+guid: d730f43ce9981d84a9411344581b9b06
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2330707374655924064
-    second: nivel3aberto_0
+      213: 2090709736142541419
+    second: fundo_frutinhas_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: nivel3aberto_0
+      name: fundo_frutinhas_0
       rect:
         serializedVersion: 2
-        x: 254
-        y: 86
-        width: 1728
-        height: 1420
+        x: 0
+        y: 0
+        width: 1920
+        height: 1080
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 067efb53206585020800000000000000
-      internalID: 2330707374655924064
+      spriteID: b621a3f8d61b30d10800000000000000
+      internalID: 2090709736142541419
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      nivel3aberto_0: 2330707374655924064
+      fundo_frutinhas_0: 2090709736142541419
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
