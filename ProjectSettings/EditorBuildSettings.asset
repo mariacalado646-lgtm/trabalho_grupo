@@ -18,11 +18,20 @@ EditorBuildSettings:
     path: Assets/Scenes/menuminijogos.unity
     guid: dd03e2d880915f24380add446b8731c8
   - enabled: 1
-    path: Assets/Scenes/jogomemoria.unity
-    guid: c19605cb9750c2249ac5200b047c3878
+    path: Assets/Scenes/coletar/Menu.unity
+    guid: 3f6b054bbfd70354d8ccd75ec26dd06d
   - enabled: 1
-    path: Assets/Scenes/memorian1.unity
+    path: Assets/Scenes/coletar/Level1.unity
     guid: f05e85296dd8378448e6887a631756a5
+  - enabled: 1
+    path: Assets/Scenes/coletar/Level2.unity
+    guid: 36949c4d319adf54b9cc14a9cf4b7748
+  - enabled: 1
+    path: Assets/Scenes/coletar/Level3.unity
+    guid: d65cef909c9bdb748a9b26164b4d2321
+  - enabled: 1
+    path: Assets/Scenes/coletar/Result.unity
+    guid: 745070f70d8bb1a488db83817ffca593
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
