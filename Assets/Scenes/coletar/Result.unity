@@ -427,7 +427,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c35cc135623e41b45ba608e5a97ff2cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ResultScreen
-  resultText: {fileID: 0}
+  resultText: {fileID: 1269769198}
   scoreText: {fileID: 913525338}
   targetText: {fileID: 1154866812}
   nextButton: {fileID: 2046612679}

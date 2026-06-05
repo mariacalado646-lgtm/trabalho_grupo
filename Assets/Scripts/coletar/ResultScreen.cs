@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System;
 
 public class ResultScreen : MonoBehaviour
 {
@@ -31,11 +32,10 @@ public class ResultScreen : MonoBehaviour
                 0
             );
 
-        scoreText.text =
-            "Pontuação: " + score;
+        scoreText.text = "Pontuação: " + score;
 
-        targetText.text =
-            "Meta: " + target;
+
+        targetText.text = "Meta: " + target;
 
         if (won == 1)
         {

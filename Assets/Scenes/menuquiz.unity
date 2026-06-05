@@ -512,7 +512,6 @@ GameObject:
   - component: {fileID: 612308574}
   - component: {fileID: 612308577}
   - component: {fileID: 612308576}
-  - component: {fileID: 612308575}
   m_Layer: 5
   m_Name: frutas e verduras
   m_TagString: Untagged
@@ -539,28 +538,6 @@ RectTransform:
   m_AnchoredPosition: {x: 279.8529, y: -91.97943}
   m_SizeDelta: {x: 492.268, y: 98.076}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!95 &612308575
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 612308573}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3f052f9ec7b613f4488ae7a71c9d2617, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &612308576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -574,7 +551,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Text
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1081,7 +1058,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -70.563, y: -78}
+  m_AnchoredPosition: {x: 35.01, y: -30}
   m_SizeDelta: {x: 321.874, y: 315.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &913982054
@@ -1467,7 +1444,6 @@ GameObject:
   - component: {fileID: 1495048018}
   - component: {fileID: 1495048021}
   - component: {fileID: 1495048020}
-  - component: {fileID: 1495048019}
   m_Layer: 5
   m_Name: "nutri\xE7\xE3otxt"
   m_TagString: Untagged
@@ -1494,28 +1470,6 @@ RectTransform:
   m_AnchoredPosition: {x: 270.383, y: -78.97943}
   m_SizeDelta: {x: 401.127, y: 98.076}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!95 &1495048019
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1495048017}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3f052f9ec7b613f4488ae7a71c9d2617, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &1495048020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1529,7 +1483,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Text
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2262,8 +2216,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 938.58997, y: -191.77994}
-  m_SizeDelta: {x: 949.771, y: 218.476}
+  m_AnchoredPosition: {x: 938.58997, y: -173.48444}
+  m_SizeDelta: {x: 949.771, y: 181.885}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &1854790428
 Animator:
@@ -2275,7 +2229,7 @@ Animator:
   m_GameObject: {fileID: 1854790426}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3f052f9ec7b613f4488ae7a71c9d2617, type: 2}
+  m_Controller: {fileID: 9100000, guid: cfc64040ae344644a9a6a6d1618e7a76, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2702,7 +2656,6 @@ GameObject:
   - component: {fileID: 2083350191}
   - component: {fileID: 2083350194}
   - component: {fileID: 2083350193}
-  - component: {fileID: 2083350192}
   m_Layer: 5
   m_Name: piramidealimentar
   m_TagString: Untagged
@@ -2729,28 +2682,6 @@ RectTransform:
   m_AnchoredPosition: {x: 274.8529, y: -91.97943}
   m_SizeDelta: {x: 476.588, y: 98.078}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!95 &2083350192
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2083350190}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3f052f9ec7b613f4488ae7a71c9d2617, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &2083350193
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2764,7 +2695,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Text
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
