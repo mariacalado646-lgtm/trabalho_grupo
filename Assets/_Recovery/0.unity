@@ -361,15 +361,15 @@ RectTransform:
   m_GameObject: {fileID: 1673978577}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.14556618, y: 0.14556618, z: 0.14556618}
+  m_LocalScale: {x: 0.102427036, y: 0.102427036, z: 0.102427036}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 491.45197, y: 276.38055}
-  m_SizeDelta: {x: 2829.9995, y: 1591.5247}
+  m_AnchoredPosition: {x: 6594.9385, y: 3709.958}
+  m_SizeDelta: {x: 1920, y: 1080.0889}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1673978579
 MonoBehaviour:
@@ -392,7 +392,7 @@ MonoBehaviour:
   - {fileID: 246678485105556059, guid: 1539b8953f5d7a589abc82edf1786fbf, type: 3}
   - {fileID: 1822820344911810360, guid: d69c094f140d65c1099d6244e25be4ac, type: 3}
   - {fileID: 1822820344911810360, guid: 6c1d7abb41503fb099535319880ce8e7, type: 3}
-  foodBoardGameObject: {fileID: 1673978577}
+  foodBoardGameObject: {fileID: 0}
   foodsToDestroy: []
   selectedFood: {fileID: 0}
   isProcessingMove: 0
