@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7614879050873467138
+--- !u!1 &557956310982704170
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,24 +8,24 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5484963784925967298}
-  - component: {fileID: 8406810261268458130}
-  - component: {fileID: 984457854268372903}
-  - component: {fileID: 9214629400431940234}
+  - component: {fileID: 4282019226997279640}
+  - component: {fileID: 3983792035493450128}
+  - component: {fileID: 1432570359326529225}
+  - component: {fileID: 3094136934794793849}
   m_Layer: 5
-  m_Name: "Ma\xE7a"
+  m_Name: bala
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &5484963784925967298
+--- !u!224 &4282019226997279640
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7614879050873467138}
+  m_GameObject: {fileID: 557956310982704170}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -35,24 +35,24 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -328, y: 48}
+  m_AnchoredPosition: {x: -210.1615, y: 51.77423}
   m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &8406810261268458130
+--- !u!222 &3983792035493450128
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7614879050873467138}
+  m_GameObject: {fileID: 557956310982704170}
   m_CullTransparentMesh: 1
---- !u!114 &984457854268372903
+--- !u!114 &1432570359326529225
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7614879050873467138}
+  m_GameObject: {fileID: 557956310982704170}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 7549672006538830878, guid: a3bb974cc3bbba242b01037b702a755b, type: 3}
+  m_Sprite: {fileID: -3748623241703387165, guid: 80534f494b3a0584c971641121c952e9, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -76,17 +76,17 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &9214629400431940234
+--- !u!114 &3094136934794793849
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7614879050873467138}
+  m_GameObject: {fileID: 557956310982704170}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 34f2f534d1859b146b15fa1b98ed44aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FoodUI
-  points: 1
+  points: -2
   speed: 400

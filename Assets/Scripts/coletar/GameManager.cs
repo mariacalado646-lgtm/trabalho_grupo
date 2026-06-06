@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
 
     public float timeLeft = 30;
 
+    public int currentLevel = 1;
+
     public TMP_Text scoreText;
     public TMP_Text timerText;
 
@@ -22,11 +24,9 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        scoreText.text =
-            "Pontos: " + score;
+        scoreText.text = "Pontos: " + score;
 
-        timerText.text =
-            Mathf.Ceil(timeLeft).ToString();
+        timerText.text = Mathf.Ceil(timeLeft).ToString();
 
         timeLeft -= Time.deltaTime;
 
@@ -43,52 +43,27 @@ public class GameManager : MonoBehaviour
 
     void EndGame()
     {
-        PlayerPrefs.SetInt(
-            "LastScore",
-            score
-        );
+        PlayerPrefs.SetInt("LastScore", score);
+        PlayerPrefs.SetInt("TargetScore", targetScore);
+        PlayerPrefs.SetInt("CurrentLevel", currentLevel);
+        PlayerPrefs.SetString("CurrentScene", SceneManager.GetActiveScene().name);
 
         if (score >= targetScore)
         {
-            PlayerPrefs.SetInt(
-                "Won",
-                1
-            );
+            PlayerPrefs.SetInt("Won", 1);
 
-            int current =
-                SceneManager
-                .GetActiveScene()
-                .buildIndex;
+            int unlocked = PlayerPrefs.GetInt("UnlockedLevel", 1);
 
-            PlayerPrefs.SetInt(
-                "CurrentLevel",
-                current
-            );
-
-            int unlocked =
-                PlayerPrefs.GetInt(
-                    "UnlockedLevel",
-                    1
-                );
-
-            if (current + 1 > unlocked)
+            if (currentLevel + 1 > unlocked)
             {
-                PlayerPrefs.SetInt(
-                    "UnlockedLevel",
-                    current + 1
-                );
+                PlayerPrefs.SetInt("UnlockedLevel", currentLevel + 1);
             }
         }
         else
         {
-            PlayerPrefs.SetInt(
-                "Won",
-                0
-            );
+            PlayerPrefs.SetInt("Won", 0);
         }
 
-        SceneManager.LoadScene(
-            "Result"
-        );
+        SceneManager.LoadScene("Result");
     }
 }

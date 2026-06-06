@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6907214912211529844
+--- !u!1 &6787060867574611374
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,24 +8,24 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8672767222452278096}
-  - component: {fileID: 3238075501656823034}
-  - component: {fileID: 7387506767103990800}
-  - component: {fileID: 5088972880074286194}
+  - component: {fileID: 1276314116180703868}
+  - component: {fileID: 8211992078345820308}
+  - component: {fileID: 7641597510419806421}
+  - component: {fileID: 2485806318256057358}
   m_Layer: 5
-  m_Name: pizza
+  m_Name: broculos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &8672767222452278096
+--- !u!224 &1276314116180703868
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6907214912211529844}
+  m_GameObject: {fileID: 6787060867574611374}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -38,21 +38,21 @@ RectTransform:
   m_AnchoredPosition: {x: -210.1615, y: 51.77423}
   m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &3238075501656823034
+--- !u!222 &8211992078345820308
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6907214912211529844}
+  m_GameObject: {fileID: 6787060867574611374}
   m_CullTransparentMesh: 1
---- !u!114 &7387506767103990800
+--- !u!114 &7641597510419806421
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6907214912211529844}
+  m_GameObject: {fileID: 6787060867574611374}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -6444940296795206775, guid: 0c5475e0086f98b40b12ce1a5173f2bf, type: 3}
+  m_Sprite: {fileID: 6000928368684482114, guid: 5d4523cc369eb2f4cbadc49c5055440a, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -76,17 +76,17 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5088972880074286194
+--- !u!114 &2485806318256057358
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6907214912211529844}
+  m_GameObject: {fileID: 6787060867574611374}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 34f2f534d1859b146b15fa1b98ed44aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FoodUI
-  points: -2
+  points: 5
   speed: 400
