@@ -21,7 +21,8 @@ public class FoodBoard : MonoBehaviour
     public GameObject foodBoardGameObject;
     
     public List<GameObject> foodsToDestroy = new();
-
+    public GameObject foodParent;
+    
     [SerializeField] private Food selectedFood = null;
 
     [SerializeField]
@@ -81,14 +82,14 @@ public class FoodBoard : MonoBehaviour
                 int randomIndex =  Random.Range(0, foodPrefabs.Length);
                 
                 GameObject food = Instantiate(foodPrefabs[randomIndex], position, Quaternion.identity);
-                
+                food.transform.SetParent(foodParent.transform);
                 food.GetComponent<Food>().SetIndecies(x, y);
                 foodBoard[x, y] = new Node(true, food);
                 foodsToDestroy.Add(food);
             }
         }
 
-        if (CheckBoard())
+        if (CheckBoard(false))
         {
             Debug.Log("Board initialized with matches, reinitializing");
             InitializeBoard();
@@ -107,18 +108,28 @@ public class FoodBoard : MonoBehaviour
             foodsToDestroy.Clear();
         }
     }
-    public bool CheckBoard()
+    
+     public bool CheckBoard(bool _takeAction)
     {
         Debug.Log("Checking the Board");
         bool hasMatched = false;
 
         List<Food> foodsToRemove = new();
 
+        foreach (Node nodeFood in foodBoard)
+        {
+            if (nodeFood.food != null)
+            {
+                nodeFood.food.GetComponent<Food>().isMatched = false;
+            }
+        }
+
         for (int x = 0; x < width; x++)
         {
             for (int y = 0; y < height; y++)
             {
-                // get food class in node
+                // get food class in node 
+                if (foodBoard[x, y].food == null) continue;
                 Food food = foodBoard[x, y].food.GetComponent<Food>();
                 
                 // ensure it's not matched
@@ -134,17 +145,148 @@ public class FoodBoard : MonoBehaviour
                         
                         foodsToRemove.AddRange(superMatchedFoods.connectedFoods);
 
-                        foreach (Food f in superMatchedFoods .connectedFoods) f.isMatched = true;
+                        foreach (Food f in superMatchedFoods .connectedFoods)
+                            f.isMatched = true;
                         hasMatched = true;
                     }
                 }
                     
             }
         }
+
+        if (_takeAction)
+        {
+            foreach (Food f in foodsToRemove)
+            {
+                f.isMatched = false;    
+            }
+            
+            RemoveAndRefill(foodsToRemove);
+             
+            if (CheckBoard(false))
+            {
+                CheckBoard(true);
+            }
+        }
+        //check for a brand new match
         
         return hasMatched;
     }
 
+
+    
+
+    private void RemoveAndRefill(List<Food> _foodsToRemove)
+    {
+        // Removing the food and clearing the board at that location
+        foreach (Food food in _foodsToRemove)
+        {
+            // getting it'sx and y indecies and storing them
+            int _xIndex = food.xIndex;
+            int _yIndex = food.yIndex;
+            
+            // Destroy the food
+            Destroy(food.gameObject);
+            
+            // Create a blank node on the destroyed food position
+            foodBoard[_xIndex, _yIndex] = new Node(true, null);
+        }
+
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                if (foodBoard[x, y].food == null)
+                {
+                    Debug.Log($"The location [{x}, {y}] is empty, attempting to refill");
+                    RefillFood(x, y);
+                }
+            }
+        }
+    }
+
+    #region Cascading Foods
+    
+    // RefilFoods
+    private void RefillFood(int x, int y)
+    {
+        // y offset
+        int yOffset = 1;
+        
+        // While the cell above is null and we're below the height of the board, increment y offset
+        while (y + yOffset < height && foodBoard[x, y + yOffset].food == null)
+        {
+            Debug.Log($"The potion above me is null, but I'm not at the top of the board yet, so add to my yOffset and try again. Current offset is: {yOffset}. Will add 1");
+            yOffset++;
+        }
+        // We've either hit a food or the top of the board
+
+        if (y + yOffset < height && foodBoard[x, y + yOffset].food != null)
+        {
+            // We've hit a food
+            Food foodAbove = foodBoard[x, y + yOffset].food.GetComponent<Food>();
+            
+            // Move it to the correct location
+            Vector3 targetPos = new Vector3(x - spacingX, y - spacingY, foodAbove.transform.position.z);
+            Debug.Log($"Food found when refilling he board, it was at [{x}, {y + yOffset}], we have moved it to the location [{x}, {y}]");
+            
+            // Move to location
+            foodAbove.MoveToTarget(targetPos);
+            
+            // update indecies
+            foodAbove.SetIndecies(x, y);
+            foodBoard[x, y] = foodBoard[x, y + yOffset];
+            
+            // Set original food location to null
+            foodBoard[x, y + yOffset] = new Node(true, null);
+        }
+        // if we've hit the top of the board without finding a food
+        if (y + yOffset == height)
+        {
+            Debug.Log("Reached top of the Board without finding any food");
+            SpawnFoodsAtTop(x);
+        }
+    }
+        
+    // SpawnFoodsAtTop()
+    private void SpawnFoodsAtTop(int x)
+    {
+        int index = FindIndexOfLowestNull(x);
+        int locatioToMoveTo = height - index;
+        Debug.Log($"Spawning foods at [{x}, {index}]");
+        
+        int randomIndex = Random.Range(0, foodPrefabs.Length);
+        GameObject newFood = Instantiate(foodPrefabs[randomIndex], new Vector2(x - spacingX, height - spacingY), Quaternion.identity);
+        newFood.transform.SetParent(foodParent.transform);
+        
+        // Set Indecies
+        newFood.GetComponent<Food>().SetIndecies(x, index);
+        
+        // Set it on the board
+        foodBoard[x, index] = new Node(true, newFood);
+        
+        // Move it to that location
+        Vector3 targetPosition = new Vector3(x - spacingX, index - spacingY, newFood.transform.position.z);
+        newFood.GetComponent<Food>().MoveToTarget(targetPosition);
+    }
+    
+    // FindIndexOfLowestNull
+    private int FindIndexOfLowestNull(int x)
+    {
+        int lowestNull = 99;
+        for (int y = height - 1; y >= 0; y--)
+        {
+            if (foodBoard[x, y].food == null)
+            {
+                lowestNull = y;
+            }
+        }
+        return lowestNull;
+    }
+    #endregion
+
+    #region Matching Logic
+    
     private MatchResult SuperMatch(MatchResult _matchedResults)
     {
         // if horizontal or long horizontal match
@@ -341,19 +483,42 @@ public class FoodBoard : MonoBehaviour
         // check we're within boundaries
         while (x >= 0 && x < width && y >= 0 && y < height)
         {
-            Food neighbourFood = foodBoard[x, y].food.GetComponent<Food>();
-            
-            // does food type match? must also not be matched
-            if (!neighbourFood.isMatched && neighbourFood.foodType == foodType)
+            if (foodBoard[x, y].isUsable)
             {
-                connectedFoods.Add(neighbourFood);
-                
-                x += direction.x;
-                y += direction.y; 
+                Food neighbourFood = foodBoard[x, y].food.GetComponent<Food>();
+            
+            
+                // does food type match? must also not be matched
+                if (!neighbourFood.isMatched && neighbourFood.foodType == foodType)
+                {
+                    connectedFoods.Add(neighbourFood);
+                    
+                    x += direction.x;
+                    y += direction.y; 
+                }
+                else break;
             }
             else break;
         }
     }
+
+    public class MatchResult
+    {
+        public List<Food> connectedFoods;
+        public MatchDirection direction; 
+    }
+
+    public enum MatchDirection
+    {
+        Vertical,
+        Horizontal,
+        LongVertical,
+        LongHorizontal,
+        Super,
+        None
+    }
+    
+    #endregion
     
     #region Swapping Foods
     
@@ -423,8 +588,8 @@ public class FoodBoard : MonoBehaviour
     {
         yield return new WaitForSeconds(0.2f);
 
-        bool hasMath = CheckBoard();
-        if (!hasMath)
+        bool hasMatch = CheckBoard(true);
+        if (!hasMatch)
         {
             DoSwap(_currentFood, _targetFood);
         }
@@ -438,20 +603,4 @@ public class FoodBoard : MonoBehaviour
     
     //ProcessMatches
     #endregion
-}
-
-public class MatchResult
-{
-    public List<Food> connectedFoods;
-    public MatchDirection direction; 
-}
-
-public enum MatchDirection
-{
-    Vertical,
-    Horizontal,
-    LongVertical,
-    LongHorizontal,
-    Super,
-    None
 }
