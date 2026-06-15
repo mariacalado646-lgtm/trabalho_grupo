@@ -196,9 +196,9 @@ RectTransform:
   - {fileID: 1150011437}
   - {fileID: 1357365435}
   - {fileID: 1888306159}
-  - {fileID: 309741459}
   - {fileID: 1162597278}
   - {fileID: 1269557857}
+  - {fileID: 309741459}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1033,6 +1033,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PauseMenu
   pausePanel: {fileID: 309741458}
+  clickSound: {fileID: 8300000, guid: c440397050575e74c9810bbeb452bf06, type: 3}
+  extraDelay: 0.1
 --- !u!4 &1181643683
 Transform:
   m_ObjectHideFlags: 0
@@ -1916,7 +1918,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   score: 0
   targetScore: 50
-  timeLeft: 40
+  timeLeft: 35
   currentLevel: 2
   scoreText: {fileID: 1269557858}
   timerText: {fileID: 1162597279}

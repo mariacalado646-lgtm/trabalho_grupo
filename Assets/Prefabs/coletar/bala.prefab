@@ -90,3 +90,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FoodUI
   points: -2
   speed: 400
+  collectSound: {fileID: 8300000, guid: 09c32e53c113b174dac37506ccd6a1b4, type: 3}

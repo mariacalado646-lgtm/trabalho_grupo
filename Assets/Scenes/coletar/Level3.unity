@@ -720,6 +720,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PauseMenu
   pausePanel: {fileID: 1313003980}
+  clickSound: {fileID: 8300000, guid: c440397050575e74c9810bbeb452bf06, type: 3}
+  extraDelay: 0.1
 --- !u!4 &957369947
 Transform:
   m_ObjectHideFlags: 0
@@ -1655,9 +1657,9 @@ RectTransform:
   - {fileID: 1293402968}
   - {fileID: 2131025577}
   - {fileID: 668008232}
-  - {fileID: 1313003981}
   - {fileID: 470358138}
   - {fileID: 1354515389}
+  - {fileID: 1313003981}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}

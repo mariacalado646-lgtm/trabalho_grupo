@@ -8,6 +8,9 @@ public class ButtonSound : MonoBehaviour
     public AudioClip clickSound;
     public string sceneToLoad;
 
+    [Range(0f, 1f)]
+    public float extraDelay = 0.1f;
+
     AudioSource audioSource;
 
     void Start()
@@ -49,7 +52,7 @@ public class ButtonSound : MonoBehaviour
     {
         audioSource.PlayOneShot(clickSound);
         DontDestroyOnLoad(gameObject);
-        yield return new WaitForSeconds(clickSound.length);
+        yield return new WaitForSeconds(clickSound.length + extraDelay);
         SceneManager.LoadScene(sceneToLoad);
         Destroy(gameObject);
     }

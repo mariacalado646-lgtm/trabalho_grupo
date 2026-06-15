@@ -19,28 +19,18 @@ public class FoodSpawner : MonoBehaviour
 
     void SpawnFood()
     {
-        int index =
-            Random.Range(
-                0,
-                foods.Length
-            );
+        int index = Random.Range(0, foods.Length);
 
-        GameObject food =
-            Instantiate(
-                foods[index],
-                canvas
-            );
+        GameObject food = Instantiate(foods[index], canvas);
 
-        RectTransform rt =
-            food.GetComponent<RectTransform>();
+        RectTransform rt = food.GetComponent<RectTransform>();
 
-        rt.anchoredPosition =
-            new Vector2(
-                Random.Range(
-                    -850,
-                    850
-                ),
-                650
-            );
+        rt.anchoredPosition = new Vector2(
+            Random.Range(-850, 850),
+            650
+        );
+
+        // Coloca o alimento logo acima do background
+        food.transform.SetSiblingIndex(1);
     }
 }

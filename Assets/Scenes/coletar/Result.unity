@@ -431,6 +431,10 @@ MonoBehaviour:
   nextButton: {fileID: 2046612679}
   restartButton: {fileID: 542164585}
   totalLevels: 3
+  clickSound: {fileID: 8300000, guid: c440397050575e74c9810bbeb452bf06, type: 3}
+  victoryMusic: {fileID: 8300000, guid: ca588cb5aa9e0534e990550630d34841, type: 3}
+  defeatMusic: {fileID: 8300000, guid: de266913beea3834e90af25a2853f125, type: 3}
+  extraDelay: 0.1
 --- !u!4 &444007687
 Transform:
   m_ObjectHideFlags: 0

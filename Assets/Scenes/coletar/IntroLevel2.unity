@@ -750,7 +750,9 @@ MonoBehaviour:
   levelSceneName: Level2
   levelNumber: 2
   targetScore: 50
-  totalTime: 40
+  totalTime: 35
+  clickSound: {fileID: 8300000, guid: c440397050575e74c9810bbeb452bf06, type: 3}
+  extraDelay: 0.1
 --- !u!4 &1074188554
 Transform:
   m_ObjectHideFlags: 0

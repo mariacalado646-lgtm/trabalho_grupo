@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System.Collections;
 
 public class ResultScreen : MonoBehaviour
 {
@@ -13,8 +14,25 @@ public class ResultScreen : MonoBehaviour
 
     public int totalLevels = 3;
 
+    public AudioClip clickSound;
+    public AudioClip victoryMusic;
+    public AudioClip defeatMusic;
+
+    [Range(0f, 1f)]
+    public float extraDelay = 0.1f;
+
+    AudioSource audioSource;
+    AudioSource musicSource;
+
     void Start()
     {
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.playOnAwake = false;
+
+        musicSource = gameObject.AddComponent<AudioSource>();
+        musicSource.playOnAwake = false;
+        musicSource.loop = false;
+
         int score = PlayerPrefs.GetInt("LastScore", 0);
         int target = PlayerPrefs.GetInt("TargetScore", 0);
         int won = PlayerPrefs.GetInt("Won", 0);
@@ -37,42 +55,88 @@ public class ResultScreen : MonoBehaviour
                 nextButton.SetActive(true);
                 restartButton.SetActive(false);
             }
+
+            PlayMusic(victoryMusic);
         }
         else
         {
             resultText.text = "DERROTA";
             nextButton.SetActive(false);
             restartButton.SetActive(true);
+
+            PlayMusic(defeatMusic);
+        }
+    }
+
+    void PlayMusic(AudioClip clip)
+    {
+        if (clip != null)
+        {
+            musicSource.clip = clip;
+            musicSource.Play();
         }
     }
 
     public void NextLevel()
     {
-        int current = PlayerPrefs.GetInt("CurrentLevel", 1);
-        SceneManager.LoadScene("IntroLevel" + (current + 1));
+        StartCoroutine(PlayAndLoad("IntroLevel" + (PlayerPrefs.GetInt("CurrentLevel", 1) + 1)));
     }
 
     public void Restart()
     {
         int currentLevel = PlayerPrefs.GetInt("CurrentLevel", 1);
+        int won = PlayerPrefs.GetInt("Won", 0);
 
-        if (currentLevel >= totalLevels)
+        if (currentLevel >= totalLevels && won == 1)
         {
-            // Reinicia tudo do zero
+            // Ganhou o último level — reinicia tudo do zero
+            StartCoroutine(PlayAndLoadRestart(true));
+        }
+        else
+        {
+            // Perdeu ou não é o último level — reinicia o level atual
+            StartCoroutine(PlayAndLoadRestart(false));
+        }
+    }
+
+    public void Menu()
+    {
+        StartCoroutine(PlayAndLoad("MenuColetar"));
+    }
+
+    IEnumerator PlayAndLoad(string scene)
+    {
+        musicSource.Stop();
+
+        if (clickSound != null)
+        {
+            audioSource.PlayOneShot(clickSound);
+            yield return new WaitForSeconds(clickSound.length + extraDelay);
+        }
+
+        SceneManager.LoadScene(scene);
+    }
+
+    IEnumerator PlayAndLoadRestart(bool resetAll)
+    {
+        musicSource.Stop();
+
+        if (clickSound != null)
+        {
+            audioSource.PlayOneShot(clickSound);
+            yield return new WaitForSeconds(clickSound.length + extraDelay);
+        }
+
+        if (resetAll)
+        {
             PlayerPrefs.SetInt("UnlockedLevel", 1);
             PlayerPrefs.SetInt("CurrentLevel", 1);
             SceneManager.LoadScene("IntroLevel1");
         }
         else
         {
-            // Reinicia o level atual
             string scene = PlayerPrefs.GetString("CurrentScene", "Level1");
             SceneManager.LoadScene(scene);
         }
-    }
-
-    public void Menu()
-    {
-        SceneManager.LoadScene("MenuColetar");
     }
 }

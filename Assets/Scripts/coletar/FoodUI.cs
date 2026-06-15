@@ -3,11 +3,11 @@ using UnityEngine;
 public class FoodUI : MonoBehaviour
 {
     public int points = 1;
-
     public float speed = 400f;
 
-    RectTransform rect;
+    public AudioClip collectSound;
 
+    RectTransform rect;
     public static RectTransform basket;
 
     void Start()
@@ -31,18 +31,29 @@ public class FoodUI : MonoBehaviour
             Destroy(gameObject);
         }
 
-        float distance =
-            Vector2.Distance(
-                rect.anchoredPosition,
-                basket.anchoredPosition
-            );
+        float distance = Vector2.Distance(
+            rect.anchoredPosition,
+            basket.anchoredPosition
+        );
 
         if (distance < 120)
         {
-            GameManager.Instance
-                .AddPoints(points);
+            PlayCollectSound();
+
+            GameManager.Instance.AddPoints(points);
 
             Destroy(gameObject);
+        }
+    }
+
+    void PlayCollectSound()
+    {
+        if (collectSound != null)
+        {
+            GameObject soundObj = new GameObject("CollectSound");
+            AudioSource source = soundObj.AddComponent<AudioSource>();
+            source.PlayOneShot(collectSound);
+            Destroy(soundObj, collectSound.length);
         }
     }
 }

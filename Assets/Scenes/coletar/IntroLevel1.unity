@@ -1344,7 +1344,9 @@ MonoBehaviour:
   levelSceneName: Level1
   levelNumber: 1
   targetScore: 30
-  totalTime: 60
+  totalTime: 40
+  clickSound: {fileID: 8300000, guid: c440397050575e74c9810bbeb452bf06, type: 3}
+  extraDelay: 0.1
 --- !u!4 &2111424200
 Transform:
   m_ObjectHideFlags: 0
