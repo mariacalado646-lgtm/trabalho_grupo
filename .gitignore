@@ -106,4 +106,5 @@ InitTestScene*.unity*
 /[Aa]ssets/[Ss]ceneDependencyCache*
 
 # Ignore Recovery (Manually added)
-/[Aa]ssets/_Recovery
+/[Aa]ssets/_Recovery/
+/[Aa]ssets/_Recovery.meta
