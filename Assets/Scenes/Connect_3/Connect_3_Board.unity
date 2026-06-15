@@ -425,6 +425,7 @@ MonoBehaviour:
   - {fileID: 1822820344911810360, guid: 6c1d7abb41503fb099535319880ce8e7, type: 3}
   foodBoardGameObject: {fileID: 1673978577}
   foodsToDestroy: []
+  foodParent: {fileID: 885340189}
   selectedFood: {fileID: 0}
   isProcessingMove: 0
 --- !u!1660057539 &9223372036854775807

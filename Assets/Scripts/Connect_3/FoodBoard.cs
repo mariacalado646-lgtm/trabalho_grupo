@@ -21,12 +21,8 @@ public class FoodBoard : MonoBehaviour
     public GameObject foodBoardGameObject;
     
     public List<GameObject> foodsToDestroy = new();
-<<<<<<< Updated upstream
     public GameObject foodParent;
     
-=======
-
->>>>>>> Stashed changes
     [SerializeField] private Food selectedFood = null;
 
     [SerializeField]
@@ -86,7 +82,6 @@ public class FoodBoard : MonoBehaviour
                 int randomIndex =  Random.Range(0, foodPrefabs.Length);
                 
                 GameObject food = Instantiate(foodPrefabs[randomIndex], position, Quaternion.identity);
-<<<<<<< Updated upstream
                 food.transform.SetParent(foodParent.transform);
                 food.GetComponent<Food>().SetIndecies(x, y);
                 foodBoard[x, y] = new Node(true, food);
@@ -206,24 +201,10 @@ public class FoodBoard : MonoBehaviour
                     Debug.Log($"The location [{x}, {y}] is empty, attempting to refill");
                     RefillFood(x, y);
                 }
-=======
-                
-                food.GetComponent<Food>().SetIndecies(x, y);
-                foodBoard[x, y] = new Node(true, food);
-                foodsToDestroy.Add(food);
->>>>>>> Stashed changes
             }
         }
-
-        if (CheckBoard())
-        {
-            Debug.Log("Board initialized with matches, reinitializing");
-            InitializeBoard();
-        }
-        else Debug.Log("Board initialized with no matches, keeping board");
     }
 
-<<<<<<< Updated upstream
     #region Cascading Foods
     
     // RefilFoods
@@ -306,90 +287,9 @@ public class FoodBoard : MonoBehaviour
 
     #region Matching Logic
     
-=======
-    private void DestroyFoods()
-    {
-        if (foodsToDestroy != null)
-        {
-            foreach (GameObject food in foodsToDestroy)
-            {
-                Destroy(food);
-            }
-            foodsToDestroy.Clear();
-        }
-    }
-    public bool CheckBoard()
-    {
-        Debug.Log("Checking the Board");
-        bool hasMatched = false;
-
-        List<Food> foodsToRemove = new();
-
-        for (int x = 0; x < width; x++)
-        {
-            for (int y = 0; y < height; y++)
-            {
-                // get food class in node
-                Food food = foodBoard[x, y].food.GetComponent<Food>();
-                
-                // ensure it's not matched
-                if (!food.isMatched)
-                {
-                    //run matching logic
-                    
-                    MatchResult matchedFoods = IsConnected(food);
-
-                    if (matchedFoods.connectedFoods.Count >= 3)
-                    {
-                        MatchResult superMatchedFoods =  SuperMatch(matchedFoods);
-                        
-                        foodsToRemove.AddRange(superMatchedFoods.connectedFoods);
-
-                        foreach (Food f in superMatchedFoods .connectedFoods) f.isMatched = true;
-                        hasMatched = true;
-                    }
-                }
-                    
-            }
-        }
-        
-        return hasMatched;
-    }
-
->>>>>>> Stashed changes
     private MatchResult SuperMatch(MatchResult _matchedResults)
     {
         // if horizontal or long horizontal match
-        if (_matchedResults.direction == MatchDirection.Horizontal ||
-            _matchedResults.direction == MatchDirection.LongHorizontal)
-        {
-            foreach (Food f in _matchedResults.connectedFoods)
-            {
-                List<Food> extraConnectedFoods = new();
-                
-                CheckDirection(f, new Vector2Int(0, 1), extraConnectedFoods);
-                CheckDirection(f, new Vector2Int(0, -1), extraConnectedFoods);
-
-                if (extraConnectedFoods.Count >= 2) 
-                {
-                    Debug.Log($"Super Horizontal match found at: [{f.xIndex}, {f.yIndex}]");
-                    extraConnectedFoods.AddRange(_matchedResults.connectedFoods);
-
-                    return new MatchResult
-                    {
-                        connectedFoods = extraConnectedFoods,
-                        direction = MatchDirection.Horizontal
-                    };
-                }
-            }
-
-            return new MatchResult
-            {
-                connectedFoods = _matchedResults.connectedFoods,
-                direction = _matchedResults.direction
-            };   
-        }
-        
         if (_matchedResults.direction == MatchDirection.Horizontal ||
             _matchedResults.direction == MatchDirection.LongHorizontal)
         {
@@ -419,52 +319,37 @@ public class FoodBoard : MonoBehaviour
                 direction = _matchedResults.direction
             };   
         }
-            // loop through foods in match
-                // create a new list of foods "extra matches"
-            // CheckDirection up
-            // CheckDirection down
-            // do we have 2 or more matches?
-                // we've made a super match, return a new matchresult of type super
-            // return extra matches
-            
-            // if vertical or long vertical match
-            else if (_matchedResults.direction == MatchDirection.Vertical ||
-                _matchedResults.direction == MatchDirection.LongVertical)
+        // if vertical or long vertical match
+        else if (_matchedResults.direction == MatchDirection.Vertical ||
+            _matchedResults.direction == MatchDirection.LongVertical)
+        {
+            foreach (Food f in _matchedResults.connectedFoods)
             {
-                foreach (Food f in _matchedResults.connectedFoods)
-                {
-                    List<Food> extraConnectedFoods = new();
-                
-                    CheckDirection(f, new Vector2Int(-1, 0), extraConnectedFoods);
-                    CheckDirection(f, new Vector2Int(1 , 0), extraConnectedFoods);
+                List<Food> extraConnectedFoods = new();
+            
+                CheckDirection(f, new Vector2Int(-1, 0), extraConnectedFoods);
+                CheckDirection(f, new Vector2Int(1 , 0), extraConnectedFoods);
 
-                    if (extraConnectedFoods.Count >= 2) 
+                if (extraConnectedFoods.Count >= 2) 
+                {
+                    Debug.Log($"Super Vertical match found at: [{f.xIndex}, {f.yIndex}]");
+                    extraConnectedFoods.AddRange(_matchedResults.connectedFoods);
+
+                    return new MatchResult
                     {
-                        Debug.Log($"Super Vertical match found at: [{f.xIndex}, {f.yIndex}]");
-                        extraConnectedFoods.AddRange(_matchedResults.connectedFoods);
-
-                        return new MatchResult
-                        {
-                            connectedFoods = extraConnectedFoods,
-                            direction = MatchDirection.Super
-                        };
-                    }
+                        connectedFoods = extraConnectedFoods,
+                        direction = MatchDirection.Super
+                    };
                 }
-
-                return new MatchResult
-                {
-                    connectedFoods = _matchedResults.connectedFoods,
-                    direction = _matchedResults.direction
-                };   
             }
-            // loop through foods in match
-            // create a new list of foods "extra matches"
-            // CheckDirection up
-            // CheckDirection down
-            // do we have 2 or more matches?
-            // we've made a super match, return a new matchresult of type super
-            // return extra matches
-            return null;
+
+            return new MatchResult
+            {
+                connectedFoods = _matchedResults.connectedFoods,
+                direction = _matchedResults.direction
+            };   
+        }
+        return null;
     }
     
     MatchResult IsConnected(Food food)
@@ -540,8 +425,6 @@ public class FoodBoard : MonoBehaviour
                 direction = MatchDirection.None
             }; 
         }
-        
-        // return new MatchResult(); // suppress error, to be deleted
     }
 
     void CheckDirection(Food food, Vector2Int direction, List<Food> connectedFoods)
@@ -553,7 +436,6 @@ public class FoodBoard : MonoBehaviour
         // check we're within boundaries
         while (x >= 0 && x < width && y >= 0 && y < height)
         {
-<<<<<<< Updated upstream
             if (foodBoard[x, y].isUsable)
             {
                 Food neighbourFood = foodBoard[x, y].food.GetComponent<Food>();
@@ -568,22 +450,10 @@ public class FoodBoard : MonoBehaviour
                     y += direction.y; 
                 }
                 else break;
-=======
-            Food neighbourFood = foodBoard[x, y].food.GetComponent<Food>();
-            
-            // does food type match? must also not be matched
-            if (!neighbourFood.isMatched && neighbourFood.foodType == foodType)
-            {
-                connectedFoods.Add(neighbourFood);
-                
-                x += direction.x;
-                y += direction.y; 
->>>>>>> Stashed changes
             }
             else break;
         }
     }
-<<<<<<< Updated upstream
 
     public class MatchResult
     {
@@ -602,8 +472,6 @@ public class FoodBoard : MonoBehaviour
     }
     
     #endregion
-=======
->>>>>>> Stashed changes
     
     #region Swapping Foods
     
@@ -673,13 +541,8 @@ public class FoodBoard : MonoBehaviour
     {
         yield return new WaitForSeconds(0.2f);
 
-<<<<<<< Updated upstream
         bool hasMatch = CheckBoard(true);
         if (!hasMatch)
-=======
-        bool hasMath = CheckBoard();
-        if (!hasMath)
->>>>>>> Stashed changes
         {
             DoSwap(_currentFood, _targetFood);
         }
@@ -693,23 +556,4 @@ public class FoodBoard : MonoBehaviour
     
     //ProcessMatches
     #endregion
-<<<<<<< Updated upstream
-=======
-}
-
-public class MatchResult
-{
-    public List<Food> connectedFoods;
-    public MatchDirection direction; 
-}
-
-public enum MatchDirection
-{
-    Vertical,
-    Horizontal,
-    LongVertical,
-    LongHorizontal,
-    Super,
-    None
->>>>>>> Stashed changes
 }
