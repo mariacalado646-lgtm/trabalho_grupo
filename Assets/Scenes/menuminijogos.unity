@@ -433,7 +433,6 @@ GameObject:
   - component: {fileID: 508930870}
   - component: {fileID: 508930869}
   - component: {fileID: 508930868}
-  - component: {fileID: 508930871}
   m_Layer: 5
   m_Name: jogarlancheira
   m_TagString: Untagged
@@ -504,9 +503,21 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1516123940}
-        m_TargetAssemblyTypeName: LunchboxHero.SceneLoaderLancheira, Assembly-CSharp
-        m_MethodName: LoadScene
+      - m_Target: {fileID: 1866363652}
+        m_TargetAssemblyTypeName: PageChanger, Assembly-CSharp
+        m_MethodName: ChangePage
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: "explica\xE7\xE3olancheira"
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1866363651}
+        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+        m_MethodName: Play
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -554,20 +565,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 508930866}
   m_CullTransparentMesh: 1
---- !u!114 &508930871
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 508930866}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5ecbf51b8fa7074182af38f6568f56d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::LunchboxHero.ButtonSoundLancheira
-  clickSound: {fileID: 8300000, guid: c440397050575e74c9810bbeb452bf06, type: 3}
-  volume: 1
 --- !u!1 &510488765
 GameObject:
   m_ObjectHideFlags: 0
