@@ -20,7 +20,8 @@ public class GameManagerConnect3 : MonoBehaviour
     public int points; //current points
 
     public bool isGameEnded;
-
+    public bool isGamePaused;
+    
     public TMP_Text timerTxt;
     public TMP_Text pointsTxt;
     public TMP_Text goalTxt;
@@ -32,6 +33,13 @@ public class GameManagerConnect3 : MonoBehaviour
     public AudioSource musicSource;
     public AudioClip backgroundMusic;
     private bool isMuted = false;
+    public AudioSource sfxSource;
+    // win sound
+    public AudioClip winMusic;
+    // lose sound
+    public AudioClip loseMusic;
+    
+    [SerializeField] public int currentLevel;
     
     public Button muteButton;
     public Sprite musicOnSprite;
@@ -51,6 +59,13 @@ public class GameManagerConnect3 : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        if (MusicManager.Instance != null)
+        {
+            Destroy(MusicManager.Instance.gameObject);
+            MusicManager.Instance = null;
+        }
+        
+        goalTxt.text = goal.ToString();
         isTimerCounting = true;
         startTime++;
         time = startTime;
@@ -67,7 +82,6 @@ public class GameManagerConnect3 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        goalTxt.text = goal.ToString();
         pointsTxt.text = points.ToString();
         
         // if time bigger than 0, game is still running and timer is till counting
@@ -82,6 +96,7 @@ public class GameManagerConnect3 : MonoBehaviour
             isGameEnded = true;
             backgroundPanel.SetActive(true);
             losePanel.SetActive(true);
+            sfxSource.PlayOneShot(loseMusic);
         }
         DisplayTime(time);
     }
@@ -93,9 +108,12 @@ public class GameManagerConnect3 : MonoBehaviour
         if (points >= goal)
         {
             isGameEnded = true;
+            PlayerPrefs.SetInt($"Level_{currentLevel}_Complete", 1);
+            PlayerPrefs.Save();
             winTxt.text = $"Parabéns, completaste o nível em apenas {Mathf.FloorToInt(GetElapsedTime())} segundos!"; 
             backgroundPanel.SetActive(true);
             victoryPanel.SetActive(true);
+            sfxSource.PlayOneShot(winMusic);
         }
     }
 
@@ -117,6 +135,7 @@ public class GameManagerConnect3 : MonoBehaviour
 
     public void PauseGame()
     {
+        isGamePaused = true;
         backgroundPanel.SetActive(true);
         pausePanel.SetActive(true);
         isTimerCounting = false;
@@ -125,6 +144,7 @@ public class GameManagerConnect3 : MonoBehaviour
     
     public void ResumeGame()
     {
+        isGamePaused = false;
         backgroundPanel.SetActive(false);
         pausePanel.SetActive(false);
         isTimerCounting = true;

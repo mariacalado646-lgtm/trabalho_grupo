@@ -42,6 +42,14 @@ public class FoodBoard : MonoBehaviour
     [SerializeField] private float boardSize = 7f;
     private float cellSize;
 
+    // Sounds and stuff
+    [Header("Sound Effects")]
+    private AudioSource audioSource;
+    public AudioClip selectSound;
+    // public AudioClip swapSound;
+    public AudioClip matchSound;
+    
+    
     // helper: convert grid index to world position
     private Vector3 GridToWorldPos(int x, int y, float z = 0f)
     {
@@ -70,6 +78,7 @@ public class FoodBoard : MonoBehaviour
     
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         InitializeBoard();
     }
 
@@ -77,6 +86,7 @@ public class FoodBoard : MonoBehaviour
     void Update()
     {
         if (GameManagerConnect3.instance.isGameEnded) return;
+        if (GameManagerConnect3.instance.isGamePaused) return;
         
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
@@ -86,6 +96,7 @@ public class FoodBoard : MonoBehaviour
 
             if (hit.collider != null && hit.collider.gameObject.GetComponentInParent<Food>())
             {
+                audioSource.PlayOneShot(selectSound);
                 if (isProcessingMove) return;
                 Food food = hit.collider.gameObject.GetComponent<Food>();
                 Debug.Log($"Clicked food: {food.foodType}");
@@ -191,6 +202,7 @@ public class FoodBoard : MonoBehaviour
 
     public IEnumerator ProcessTurnOnMatchBoard()
     {
+        audioSource.PlayOneShot(matchSound);
         foreach (Food f in foodsToRemove)
         {
             f.isMatched = false;    

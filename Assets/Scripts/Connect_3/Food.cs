@@ -14,7 +14,6 @@ public class Food : MonoBehaviour
 
     private Vector3 originalScale;
     private Coroutine pulseCoroutine;
-    
 
     public void SetIndecies(int _xIndex, int _yIndex)
     {
