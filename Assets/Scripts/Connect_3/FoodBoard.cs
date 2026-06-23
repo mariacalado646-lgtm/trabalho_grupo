@@ -6,8 +6,9 @@ using UnityEngine.InputSystem;
 public class FoodBoard : MonoBehaviour
 {
     // define size of the board
-    public int width = 5;
-    public int height = 5;
+    [SerializeField] private int boardDimension = 5;
+    public int width => boardDimension;
+    public int height => boardDimension;
     
     // define some spacing of the board
     public float spacingX;
@@ -27,13 +28,40 @@ public class FoodBoard : MonoBehaviour
 
     [SerializeField]
     private bool isProcessingMove;
-    
+
+    [SerializeField]
+    List<Food> foodsToRemove = new();
     // layout array
     // missing scripts
     
     //public static of FoodBoard
     public static FoodBoard Instance;
     
+    [Header("Board Area")]
+    private readonly Vector2 boardCenter = new Vector2(0f, -0.8f);
+    [SerializeField] private float boardSize = 7f;
+    private float cellSize;
+
+    // helper: convert grid index to world position
+    private Vector3 GridToWorldPos(int x, int y, float z = 0f)
+    {
+        return new Vector3(
+            x * cellSize - spacingX + boardCenter.x,
+            y * cellSize - spacingY + boardCenter.y,
+            z
+        );
+    }
+
+    // helper: scale sprite to fit inside a cell
+    private void ScaleToFitCell(GameObject food)
+    {
+        SpriteRenderer sr = food.GetComponent<SpriteRenderer>();
+        float originalWidth = sr.bounds.size.x / food.transform.localScale.x;
+        float originalHeight = sr.bounds.size.y / food.transform.localScale.y;
+        float largestSide = Mathf.Max(originalWidth, originalHeight);
+        float scale = cellSize / largestSide * 0.85f;
+        food.transform.localScale = Vector3.one * scale;
+    }
 
     public void Awake()
     {
@@ -48,6 +76,8 @@ public class FoodBoard : MonoBehaviour
 
     void Update()
     {
+        if (GameManagerConnect3.instance.isGameEnded) return;
+        
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
             Vector2 mousePos = Mouse.current.position.ReadValue();
@@ -70,18 +100,20 @@ public class FoodBoard : MonoBehaviour
         
         foodBoard = new Node[width, height];
         
-        spacingX = (float)(width  - 1)/2;
-        spacingY = (float)(height - 1)/2;
+        cellSize = boardSize / width;
+        spacingX = (width  - 1) * cellSize / 2f;
+        spacingY = (height - 1) * cellSize / 2f;
 
         for (int y = 0; y < height; y++)
         {
             for (int x = 0; x < width; x++)
             {
-                Vector2 position = new Vector2(x - spacingX, y - spacingY);
+                Vector2 position = GridToWorldPos(x, y);
                 
                 int randomIndex =  Random.Range(0, foodPrefabs.Length);
                 
                 GameObject food = Instantiate(foodPrefabs[randomIndex], position, Quaternion.identity);
+                ScaleToFitCell(food);
                 food.transform.SetParent(foodParent.transform);
                 food.GetComponent<Food>().SetIndecies(x, y);
                 foodBoard[x, y] = new Node(true, food);
@@ -89,7 +121,7 @@ public class FoodBoard : MonoBehaviour
             }
         }
 
-        if (CheckBoard(false))
+        if (CheckBoard())
         {
             Debug.Log("Board initialized with matches, reinitializing");
             InitializeBoard();
@@ -109,12 +141,12 @@ public class FoodBoard : MonoBehaviour
         }
     }
     
-     public bool CheckBoard(bool _takeAction)
+     public bool CheckBoard()
     {
         Debug.Log("Checking the Board");
         bool hasMatched = false;
 
-        List<Food> foodsToRemove = new();
+        foodsToRemove.Clear();
 
         foreach (Node nodeFood in foodBoard)
         {
@@ -153,27 +185,26 @@ public class FoodBoard : MonoBehaviour
                     
             }
         }
-
-        if (_takeAction)
-        {
-            foreach (Food f in foodsToRemove)
-            {
-                f.isMatched = false;    
-            }
-            
-            RemoveAndRefill(foodsToRemove);
-             
-            if (CheckBoard(false))
-            {
-                CheckBoard(true);
-            }
-        }
-        //check for a brand new match
         
         return hasMatched;
     }
 
-
+    public IEnumerator ProcessTurnOnMatchBoard()
+    {
+        foreach (Food f in foodsToRemove)
+        {
+            f.isMatched = false;    
+        }
+            
+        RemoveAndRefill(foodsToRemove);
+        GameManagerConnect3.instance.ProcessTurn(foodsToRemove.Count - 2);
+        yield return new WaitForSeconds(1f);
+        if (GameManagerConnect3.instance.isGameEnded) yield break;
+        if (CheckBoard())
+        {
+            StartCoroutine(ProcessTurnOnMatchBoard());
+        }
+    }
     
 
     private void RemoveAndRefill(List<Food> _foodsToRemove)
@@ -227,7 +258,7 @@ public class FoodBoard : MonoBehaviour
             Food foodAbove = foodBoard[x, y + yOffset].food.GetComponent<Food>();
             
             // Move it to the correct location
-            Vector3 targetPos = new Vector3(x - spacingX, y - spacingY, foodAbove.transform.position.z);
+            Vector3 targetPos = GridToWorldPos(x, y, foodAbove.transform.position.z);
             Debug.Log($"Food found when refilling he board, it was at [{x}, {y + yOffset}], we have moved it to the location [{x}, {y}]");
             
             // Move to location
@@ -252,11 +283,11 @@ public class FoodBoard : MonoBehaviour
     private void SpawnFoodsAtTop(int x)
     {
         int index = FindIndexOfLowestNull(x);
-        int locatioToMoveTo = height - index;
         Debug.Log($"Spawning foods at [{x}, {index}]");
         
         int randomIndex = Random.Range(0, foodPrefabs.Length);
-        GameObject newFood = Instantiate(foodPrefabs[randomIndex], new Vector2(x - spacingX, height - spacingY), Quaternion.identity);
+        GameObject newFood = Instantiate(foodPrefabs[randomIndex], GridToWorldPos(x, height), Quaternion.identity);
+        ScaleToFitCell(newFood);
         newFood.transform.SetParent(foodParent.transform);
         
         // Set Indecies
@@ -266,7 +297,7 @@ public class FoodBoard : MonoBehaviour
         foodBoard[x, index] = new Node(true, newFood);
         
         // Move it to that location
-        Vector3 targetPosition = new Vector3(x - spacingX, index - spacingY, newFood.transform.position.z);
+        Vector3 targetPosition = GridToWorldPos(x, index, newFood.transform.position.z);
         newFood.GetComponent<Food>().MoveToTarget(targetPosition);
     }
     
@@ -478,25 +509,27 @@ public class FoodBoard : MonoBehaviour
     // select food
     public void SelectFood(Food _targetFood)
     {
-        // if we don't have a food currently selected, then set food clicked to selected food
         if (selectedFood == null)
         {
             selectedFood = _targetFood;
+            selectedFood.Select();
             Debug.Log($"Selected Food: {_targetFood}");
         }
-        // if we select the same food twice, unselect
         else if (selectedFood == _targetFood)
         {
+            selectedFood.Deselect();
             selectedFood = null;
         }
         else if (!IsAdjacent(selectedFood, _targetFood))
         {
+            selectedFood.Deselect();
             selectedFood = _targetFood;
+            selectedFood.Select();
             Debug.Log($"Selected Food: {_targetFood}");
         }
-        // if selected food != mull and is not the current food, attempt swap
         else if (selectedFood != _targetFood)
         {
+            selectedFood.Deselect();
             SwapFood(selectedFood, _targetFood);
             selectedFood = null;
         }
@@ -541,11 +574,21 @@ public class FoodBoard : MonoBehaviour
     {
         yield return new WaitForSeconds(0.2f);
 
-        bool hasMatch = CheckBoard(true);
-        if (!hasMatch)
+        if (GameManagerConnect3.instance.isGameEnded)
         {
-            DoSwap(_currentFood, _targetFood);
+            isProcessingMove = false;
+            yield break;
         }
+        
+        bool hasMatch = CheckBoard();
+
+        if (CheckBoard())
+        {
+            // start a coroutine that is going to process out matches in our turn
+            StartCoroutine(ProcessTurnOnMatchBoard());
+        }
+        else DoSwap(_currentFood, _targetFood);
+        
         isProcessingMove = false;
     }
     private bool IsAdjacent(Food _currentFood, Food _targetFood)
